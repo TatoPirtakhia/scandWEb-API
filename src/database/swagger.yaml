@@ -1,0 +1,145 @@
+openapi: 3.0.0
+info:
+  title: SCANDIWEB
+  description: PRODUCT
+  version: 0.1.9
+servers:
+  - url: https://scandi.onrender.com/api
+    description: Render server
+  - url: http://localhost:4444/api
+    description: Local server
+paths:
+  /product/DVD:
+    post:
+      tags:
+        - Product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                price:
+                  type: number
+                DVD:
+                  type: object
+                  properties:
+                    size: 
+                      type: number
+            example:
+              id: RT3080
+              name: 'tato'
+              price: 20
+              DVD:
+                size: 700
+      responses:
+        '201':
+          description: Created succefully
+  /product/Book:
+    post:
+      tags:
+        - Product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                price:
+                  type: number
+                Book:
+                  type: object
+                  properties:
+                    size: 
+                      type: number
+            example:
+              id: GT3080
+              name: 'tato'
+              price: 20
+              Book:
+                Weight: 700
+      responses:
+        '201':
+          description: Created succefully
+  /product/furniture:
+    post:
+      tags:
+        - Product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                price:
+                  type: number
+                Furniture:
+                  type: object
+                  properties:
+                    Height: 
+                      type: number
+                    Width: 
+                      type: number
+                    Length:
+                      type: number
+            example:
+              id: RJ3080
+              name: 'tato'
+              price: 20
+              Furniture:
+                Height: 20
+                Width: 15
+                Length: 9
+      responses:
+        '201':
+          description: Created succefully
+  /getProducts:
+    get:
+      tags:
+        - getProducts
+      responses:
+        "200":
+          description: Successfully fetched
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /deleteProduct:
+    delete:
+      tags:
+        - deleteProduct
+      requestBody:
+        description: delete product
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ids:
+                  type: array
+                  items:
+                    type: string
+              example:
+                ids: ["RT3080", "GT3080"]
+      responses:
+        "200":
+          description: invoice deleted
+
