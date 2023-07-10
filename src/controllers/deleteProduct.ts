@@ -7,11 +7,10 @@ import {
 
 export const deleteProducts = async (req: Request, res: Response) => {
   const { body } = req;
-  const { ids } = body;
 
   let shouldBreak = false;
 
-  for (const id of ids) {
+  for (const id of body) {
     const productDVD = await ProductWithDVD.findOne({ id });
     if (productDVD) {
       await productDVD.deleteOne();
