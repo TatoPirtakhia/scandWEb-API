@@ -131,14 +131,12 @@ paths:
         content:
           application/json:
             schema:
-              type: object
+              type: array
               properties:
-                ids:
-                  type: array
-                  items:
-                    type: string
+                items:
+                  type: string
               example:
-                ids: ["RT3080", "GT3080"]
+                ["RT3080", "GT3080"]
       responses:
         "200":
           description: invoice deleted
