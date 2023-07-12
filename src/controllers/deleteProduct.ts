@@ -8,7 +8,7 @@ import {
 export const deleteProducts = async (req: Request, res: Response) => {
   const { body } = req;
   const deletedProducts = [];
-
+  
   try {
     for (const id of body) {
       let product = await ProductWithDVD.findOneAndDelete({ id });
