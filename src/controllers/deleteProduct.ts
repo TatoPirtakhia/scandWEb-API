@@ -7,34 +7,32 @@ import {
 
 export const deleteProducts = async (req: Request, res: Response) => {
   const { body } = req;
+  const deletedProducts = [];
 
-  let shouldBreak = false;
-
-  for (const id of body) {
-    const productDVD = await ProductWithDVD.findOne({ id });
-    if (productDVD) {
-      await productDVD.deleteOne();
-    } else {
-      const productBook = await ProductWithBook.findOne({ id });
-      console.log(productBook, 'book');
-      if (productBook) {
-        await productBook.deleteOne();
-      } else {
-        const productFurniture = await ProductWithFurniture.findOne({ id });
-        if (productFurniture) {
-          await productFurniture.deleteOne();
-        } else {
-          shouldBreak = true;
-        }
+  try {
+    for (const id of body) {
+      let product = await ProductWithDVD.findOneAndDelete({ id });
+      if (!product) {
+        product = await ProductWithBook.findOneAndDelete({ id });
       }
+      if (!product) {
+        product = await ProductWithFurniture.findOneAndDelete({ id });
+      }
+      if (!product) {
+        return res.status(404).json(`ID:${id} is not found`);
+      }
+      deletedProducts.push(product);
     }
 
-    if (shouldBreak) {
-      return res.status(404).json(`ID:${id} is not found`);
+    if (deletedProducts.length > 0) {
+      return res.status(200).json({
+        message: "Successfully deleted",
+        deletedProducts,
+      });
+    } else {
+      return res.status(404).json("No products found for deletion");
     }
-
-
+  } catch (error) {
+    return res.status(500).json("Error occurred while deleting products");
   }
-
-  return res.status(200).json("Successfully deleted");
 };
