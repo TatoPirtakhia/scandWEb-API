@@ -17,6 +17,6 @@ server.use("/api", Route);
 
 server.use("/", ...swaggerMiddleware);
 
-server.listen(4444, () =>
+server.listen(process.env.PORT || 4444, () =>
   console.log("Server is listening at http://localhost:4444")
 );

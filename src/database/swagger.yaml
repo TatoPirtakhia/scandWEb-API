@@ -4,8 +4,8 @@ info:
   description: PRODUCT
   version: 0.1.9
 servers:
-  - url: https://scandi.onrender.com/api
-    description: Render server
+  - url: scandweb-api-production.up.railway.app/api
+    description: Railway server
   - url: http://localhost:4444/api
     description: Local server
 paths:
